@@ -1,20 +1,34 @@
 """AIY V2 entrypoint PHAL plugin
 """
 
+from os.path import exists
+
 from json_database import JsonConfigXDG
 from ovos_bus_client import Message
 from ovos_plugin_manager.phal import PHALPlugin
+from ovos_plugin_manager.templates.phal import PHALValidator
 from ovos_utils import create_daemon
 from ovos_utils.log import LOG
 
 from aiy.leds import Leds, Pattern, Color
 from aiy.board import Board
 
+class AiyV2PluginValidator(PHALValidator):
+    @staticmethod
+    def validate(config=None):
+        i2c_platform_dir = config.get(Configuration().get("PHAL").get("i2c_platform", "/home/ovos/.config/mycroft/i2c_platform"))
+        if exists(i2c_platform_dir):
+            with open(i2c_platform_dir, "r") as f:
+                platform = f.readline()
+            if platform.strip() == "AIYVOICEBONNET":
+                return True
+        return False
 
 class AiyV2Plugin(PHALPlugin):
     """This is the place where all the magic happens for the
     AIY V2 LED PHAL plugin.
     """
+    validator = AiyV2PluginValidator
 
     def __init__(self, bus=None, config=None):
         super().__init__(bus=bus, name="ovos-phal-plugin-aiy-v2", config=config)

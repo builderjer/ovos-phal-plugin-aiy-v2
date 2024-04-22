@@ -19,6 +19,12 @@ It also possible to configure the plugin to only turn the LED on and off during 
 pip install ovos-phal-plugin-aiy-v2
 ```
 
+The validator looks for the file `~/.config/mycroft/i2c_platform`.  It is automatically created when using [ovos-i2csound](https://github.com/OpenVoiceOS/ovos-i2csound).  If you are not using this tool, you can manually add the necessary file.
+
+`echo AIYVOICEBONNET >> ~/.config/myroft/i2c_platform`
+
+and restart OVOS
+
 ## Configuration
 
 The plugin configuration file is `~/.config/OpenVoiceOS/ovos-phal-plugin-aiy-v2.json`.
