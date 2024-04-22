@@ -9,6 +9,7 @@ from ovos_plugin_manager.phal import PHALPlugin
 from ovos_plugin_manager.templates.phal import PHALValidator
 from ovos_utils import create_daemon
 from ovos_utils.log import LOG
+from ovos_config.config import Configuration
 
 from aiy.leds import Leds, Pattern, Color
 from aiy.board import Board
